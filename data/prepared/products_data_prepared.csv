@@ -1,0 +1,9 @@
+ProductID,ProductName,Category,UnitPrice,StockQuantity,Supplier
+101,laptop,Electronics,793.12,31,Apple
+102,hoodie,Clothing,39.1,205,HIT
+103,cable,Electronics,22.76,150,SM
+104,hat,Clothing,43.1,51,HIT
+105,football,Sports,19.78,102,Nike
+106,controller,Electronics,88.98,42,SM
+107,jacket,Clothing,67.02,37,HIT
+108,protector,Electronics,12.56,303,SM
