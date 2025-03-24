@@ -85,8 +85,8 @@ seaborn
 plotly
 
 # Work with Apache Spark for big data
-#pyspark==4.0.0.dev1
-#pyspark[sql]
+pyspark==4.0.0.dev1
+pyspark[sql]
 
 # Optional utility program to verify .venv and requirements
 git+https://github.com/denisecase/datafun-venv-checker.git#egg=datafun_venv_checker
