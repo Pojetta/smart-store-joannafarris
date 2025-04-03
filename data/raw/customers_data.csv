@@ -10,3 +10,4 @@ CustomerID,Name,Region,JoinDate,LoyaltyPoints,PreferredContactMethod
 1009,Jason Bourne,West,12/1/20,405,Email
 1010,Hermione Granger,East,12/9/22,90,Text
 1011,Hermione Grager,East,12/9/22,150,Text
+1009,Jason Bourne,West,12/1/20,405,Email

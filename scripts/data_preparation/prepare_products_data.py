@@ -221,15 +221,15 @@ def main() -> None:
     Main function for processing product data.
     """
     logger.info("==================================")
-    logger.info("STARTING prepare_sales_data.py")
+    logger.info("STARTING prepare_products_data.py")
     logger.info("==================================")
 
     logger.info(f"Root project folder: {PROJECT_ROOT}")
     logger.info(f"data / raw folder: {RAW_DATA_DIR}")
     logger.info(f"data / prepared folder: {PREPARED_DATA_DIR}")
 
-    input_file = "sales_data.csv"
-    output_file = "sales_data_prepared.csv"
+    input_file = "products_data.csv"
+    output_file = "products_data_prepared.csv"
     
     # Read raw data
     df = read_raw_data(input_file)
@@ -258,7 +258,7 @@ def main() -> None:
     save_prepared_data(df, output_file)
 
     logger.info("==================================")
-    logger.info("FINISHED prepare_sales_data.py")
+    logger.info("FINISHED prepare_products_data.py")
     logger.info("==================================")
 
 # -------------------
