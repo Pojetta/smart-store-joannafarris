@@ -150,6 +150,29 @@ def remove_outliers(df: pd.DataFrame) -> pd.DataFrame:
     logger.info(f"{len(df)} records remaining after removing outliers.")
     return df
 
+def convert_to_datetime(df: pd.DataFrame, date_column: str) -> pd.DataFrame:
+    """
+    Convert a column in the DataFrame to datetime format.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame.
+        date_column (str): The name of the column to convert.
+
+    Returns:
+        pd.DataFrame: DataFrame with the column converted to datetime.
+    """
+    # Print out the first few rows before the conversion for debugging
+    print("Before conversion:")
+    print(df[date_column].head())
+
+    # Convert the date column to datetime, specifying the correct format for MM/DD/YY
+    df[date_column] = pd.to_datetime(df[date_column], format='%m/%d/%y', errors='raise')
+
+    # Print out the first few rows after the conversion for debugging
+    print("After conversion:")
+    print(df[date_column].head())
+    
+    return df
 
 def main() -> None:
     """
@@ -191,6 +214,9 @@ def main() -> None:
 
     # Remove outliers
     df = remove_outliers(df)
+
+    # Change to datetime
+    df = convert_to_datetime(df, 'JoinDate')
 
     # Save prepared data
     save_prepared_data(df, output_file)
