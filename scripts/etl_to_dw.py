@@ -42,9 +42,9 @@ def create_schema(cursor: sqlite3.Cursor) -> None:
     """)
     
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS sale (
+        CREATE TABLE IF NOT EXISTS sales (
             sale_id INTEGER PRIMARY KEY,
-            sale_date DATE,
+            sale_date TEXT,
             customer_id INTEGER,
             product_id INTEGER,
             store_id INTEGER,
@@ -58,10 +58,10 @@ def create_schema(cursor: sqlite3.Cursor) -> None:
     """)
 
 def delete_existing_records(cursor: sqlite3.Cursor) -> None:
-    """Delete all existing records from the customer, product, and sale tables."""
+    """Delete all existing records from the customer, product, and sales tables."""
     cursor.execute("DELETE FROM customer")
     cursor.execute("DELETE FROM product")
-    cursor.execute("DELETE FROM sale")
+    cursor.execute("DELETE FROM sales")
 
 def insert_data(df, table_name, cursor):
     logger.info(f"Inserting data into {table_name} table...")
@@ -123,7 +123,7 @@ def load_data_to_db() -> None:
         # Insert data into the database
         insert_data(customers_df, "customer", cursor)
         insert_data(products_df, "product", cursor)
-        insert_data(sales_df, "sale", cursor)
+        insert_data(sales_df, "sales", cursor)
         logger.info("Data successfully loaded into warehouse.")
 
     except sqlite3.Error as e:

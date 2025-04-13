@@ -42,9 +42,9 @@ def create_customer_table(cursor: sqlite3.Cursor) -> None:
                 customer_id INTEGER PRIMARY KEY,
                 name TEXT NOT NULL,
                 region TEXT,
-                join_date TEXT  -- ISO 8601 format recommended for SQLite,
+                join_date TEXT,
                 loyalty_points INTEGER,
-                contact_method TEXT              
+                preferred_contact_method TEXT              
             )
         """)
         logger.info("customer table created.")
@@ -68,13 +68,13 @@ def create_product_table(cursor: sqlite3.Cursor) -> None:
     except sqlite3.Error as e:
         logger.error(f"Error creating product table: {e}")
 
-def create_sale_table(cursor: sqlite3.Cursor) -> None:
-    """Create sale table in the data warehouse."""
+def create_sales_table(cursor: sqlite3.Cursor) -> None:
+    """Create sales table in the data warehouse."""
     try:
         cursor.execute("""
-            CREATE TABLE IF NOT EXISTS sale (
-               transaction_id INTEGER PRIMARY KEY,
-               sale_date DATE,
+            CREATE TABLE IF NOT EXISTS sales (
+               sale_id INTEGER PRIMARY KEY,
+               sale_date TEXT,
                customer_id INTEGER,
                product_id INTEGER,
                store_id INTEGER,
@@ -86,12 +86,12 @@ def create_sale_table(cursor: sqlite3.Cursor) -> None:
                FOREIGN KEY (product_id) REFERENCES product(product_id)
             )
         """)
-        logger.info("sale table created.")
+        logger.info("sales table created.")
     except sqlite3.Error as e:
-        logger.error(f"Error creating sale table: {e}")
+        logger.error(f"Error creating sales table: {e}")
 
 def create_dw() -> None:
-    """Create the data warehouse by creating customer, product, and sale tables."""
+    """Create the data warehouse by creating customer, product, and sales tables."""
     try:
         # Connect to the SQLite database
         conn = sqlite3.connect(DB_PATH)
@@ -100,7 +100,7 @@ def create_dw() -> None:
         # Create tables
         create_customer_table(cursor)
         create_product_table(cursor)
-        create_sale_table(cursor)
+        create_sales_table(cursor)
 
         # Commit the changes and close the connection
         conn.commit()

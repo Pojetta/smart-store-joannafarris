@@ -27,7 +27,7 @@
 | column_name      | data_type | description                                        |
 |------------------|-----------|----------------------------------------------------|
 | sale_id          | INTEGER   | Primary key                                        |
-| sale_date        | DATE      | Date of the sale                                   |
+| sale_date        | TEXT      | Date of the sale                                   |
 | customer_id      | INTEGER   | Foreign key, references the customers table                  |
 | product_id       | INTEGER   | Foreign key, references the products table                    |
 | store_id         | INTEGER   | ID of the store where the sale occurred            |
