@@ -1,47 +1,113 @@
 # smart-store-joannafarris
 
-This project creates a space for experimenting and learning about Business Intellegence.
+This project explores Business Intelligence (BI) concepts using Python, Spark, and SQLite. It focuses on extracting, transforming, and analyzing sales data for a fictional smart store to uncover insights that support real business decisions.
 
-All commands are for macOS.
+---
 
-## Project initialization
-1. Create a new repository in GitHub with a default README file.
-2. Create a Projects folder on your machine from your Home directory and clone your new repository to it:
-```
-cd ~
-mkdir Projects
-cd Projects
-git clone https://github.com/Pojetta/smart-store-joannafarris
-```
-3. Open your project repository in VS Code.
-4. Add a .gitignore file and a requirements.txt.
-5. Create and activate a virtual environment:
+## ✅ Project Setup (Initial Weeks)
+
+This section summarizes how the project environment was created and organized.
+
+### Repository Initialization
+- Create a new GitHub repository with a default README.
+- Clone the repo into a `Projects` folder on macOS:
+   ```bash
+   cd ~
+   mkdir Projects
+   cd Projects
+   git clone https://github.com/Pojetta/smart-store-joannafarris
+### Python Environment Setup
+- Create and activate a virtual environment:
 ```
 python3 -m venv .venv
 source .venv/bin/activate
 ```
-6. Install dependencies
+- Install dependencies
 ```
 python3 -m pip install --upgrade pip setuptools wheel
 python3 -m pip install -r requirements.txt
 ```
 
-## Organize: Add raw data, basic scripts and log
-1. With your project open in VS Code, create folders: data/raw, scripts, and utils
-2. Create files within data/raw
-   - customer_data.csv
-   - products_data.csv
-   - sales_data.csv
-3. Copy and paste data from the data/raw files in the GitHub repo to your newly created data/raw files.
-4. Create file within scripts
-   - data_prep.py 
-5. Copy and paste code from the scripts/data_prep.py file in the GitHub repo to your newly created data_prep.py file.
-6. Create file within utils
-   - logger.py
-7. Copy and paste code from the logger.py file in the GitHub repo to your newly created logger.py file.
+### Project Structure
+- `data/raw/` – Original CSV files
+- `data/prepared/` – Cleaned and transformed data
+- `data/dw/` – SQLite data warehouse
+- `scripts/` – Python scripts for data prep and OLAP analysis
+- `utils/` – Shared utilities like logging
 
-## Execute python script
-```
-python3 scripts/data_prep.py
-```
+---
+
+## 📊 P6 OLAP Analysis Project
+
+### **Section 1: The Business Goal**
+
+**Goal:**  
+Understand regional and category-based sales performance in order to make smarter inventory distribution decisions for the upcoming quarter.
+
+**Why it matters:**  
+Knowing which products sell best in which regions allows the business to align inventory more effectively, reducing waste and improving availability where demand is highest.
+
+---
+
+### **Section 2: Data Source**
+
+- **Source:** Data warehouse built from raw CSV files using SQLite
+- **Accessed using:** Spark and JDBC
+- **Tables used:**
+  - `sales`: includes sale date, store ID, product ID, customer ID, and sales amount
+  - `product`: includes product ID and category
+  - `customer`: includes customer ID and region
+
+---
+
+### **Section 3: Tools**
+
+- **JupyterLab** for step-by-step analysis
+- **Python with PySpark** for data transformation and OLAP operations
+- **SQLite** as the data warehouse backend
+- **Seaborn / Matplotlib** for visualizations
+
+This toolset provided flexibility, transparency, and reusability while supporting deep data exploration.
+
+---
+
+### **Section 4: Workflow & Logic**
+
+- Started a Spark session and connected to the SQLite data warehouse
+- Loaded the `sales`, `product`, and `customer` tables
+- Performed slicing by filtering sales from 2023 onward
+- Diced the data by:
+  - Product category and **store-based** region (mapped from `store_id`)
+  - Product category and **customer-based** region (from the `customer` table)
+- Performed drilldowns by:
+  - Year → Quarter → Month (based on `sale_date`)
+- Aggregated sales using `SUM(sale_amount_usd)`
+- Visualized the results using grouped bar charts and line charts
+
+---
+
+### **Section 5: Results**
+
+- A **grouped bar chart** revealed total sales by product category and store region
+- A **line chart** showed month-by-month sales trends
+- Significant differences appeared between store-region and customer-region groupings
+- Monthly trends showed consistent drops and spikes that may be seasonal
+
+---
+
+### **Section 6: Suggested Business Action**
+
+- Adjust inventory distribution based on region-category performance
+- Increase supply in regions where certain product categories outperform
+- Consider region-specific promotions informed by customer-region trends
+
+---
+
+### **Section 7: Challenges**
+
+- Resolving column conflicts during joins required careful use of table aliases
+- Mapping `store_id` to `region` involved hardcoding logic in Spark
+- Spark DataFrames needed conversion to Pandas for visualization
+- Maintaining consistent aggregation levels during drilldowns took extra validation
+
 
