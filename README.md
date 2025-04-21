@@ -107,7 +107,6 @@ This toolset provided flexibility, transparency, and reusability while supportin
 
 - Resolving column conflicts during joins required careful use of table aliases
 - Mapping `store_id` to `region` involved hardcoding logic in Spark
-- Spark DataFrames needed conversion to Pandas for visualization
 - Maintaining consistent aggregation levels during drilldowns took extra validation
 
 
